@@ -32,7 +32,7 @@ public class AdminHomeUI extends JFrame {
 		});
 		cmdManageCourseUI.setFont(new Font("Serif", Font.PLAIN, 11));
 		cmdManageCourseUI.setMnemonic('o');
-		cmdManageCourseUI.setBounds(68,65,153,54);
+		cmdManageCourseUI.setBounds(57,65,164,54);
 
 		JPanel pnl = new JPanel();
 		pnl.setLayout(null);
@@ -49,7 +49,7 @@ public class AdminHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnManageDegreeUI.setBounds(250, 67, 153, 52);
+		btnManageDegreeUI.setBounds(250, 67, 170, 52);
 		pnl.add(btnManageDegreeUI);
 		
 		JButton btnManageFaultyUI = new JButton("MANAGE FACULTY");
@@ -60,7 +60,7 @@ public class AdminHomeUI extends JFrame {
 				
 			}
 		});
-		btnManageFaultyUI.setBounds(429, 67, 135, 52);
+		btnManageFaultyUI.setBounds(449, 67, 196, 52);
 		pnl.add(btnManageFaultyUI);
 		
 		JButton btnManageRoomsUi = new JButton("MANAGE ROOMS");
@@ -72,7 +72,7 @@ public class AdminHomeUI extends JFrame {
 		});
 		btnManageRoomsUi.setMnemonic('o');
 		btnManageRoomsUi.setFont(new Font("Serif", Font.PLAIN, 12));
-		btnManageRoomsUi.setBounds(68, 159, 155, 54);
+		btnManageRoomsUi.setBounds(57, 159, 166, 54);
 		pnl.add(btnManageRoomsUi);
 		
 		JButton btnStudentReportUI = new JButton("STUDENT REPORT");
@@ -82,7 +82,7 @@ public class AdminHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnStudentReportUI.setBounds(250, 161, 153, 52);
+		btnStudentReportUI.setBounds(250, 161, 170, 52);
 		pnl.add(btnStudentReportUI);
 		
 		JButton btnStudentCourseReport = new JButton("STUDENT COURSE REPORT");
@@ -92,7 +92,7 @@ public class AdminHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnStudentCourseReport.setBounds(434, 161, 177, 52);
+		btnStudentCourseReport.setBounds(454, 161, 191, 52);
 		pnl.add(btnStudentCourseReport);
 		
 		JButton btnLogout = new JButton("LOGOUT");
@@ -104,7 +104,7 @@ public class AdminHomeUI extends JFrame {
 				
 			}
 		});
-		btnLogout.setBounds(68, 250, 153, 52);
+		btnLogout.setBounds(57, 245, 170, 52);
 		pnl.add(btnLogout);
 	}	
 		

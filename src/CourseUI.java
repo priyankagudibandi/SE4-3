@@ -3,9 +3,6 @@
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -13,12 +10,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.AbstractListModel;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -46,10 +43,10 @@ public class CourseUI extends JFrame {
 	private JTextField textCourseCapacity;
 	String listOfPreReqCourses [] ={"Admin","Director"}; //new String[1000];  //{"Admin","Director"};
 	List<String> listOfPreReqCoursesList = new ArrayList<String>();
-	private JComboBox selectListOfPreReqCoursesComboBox;
 	private String textSemestersOffered;
+	private String selectListOfPreReqCourses="";
 	JRadioButton rdbtnFall,rdbtnAbcd,rdbtnSummer;
-
+	private JList list;
 	public CourseUI() {
 		setTitle("OKLAHOMA CHRISTIAN UNIVERSITY");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -80,7 +77,7 @@ public class CourseUI extends JFrame {
 		jTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				
 				bSave = new JButton("Save");
-				bSave.setBounds(82, 261, 81, 23);
+				bSave.setBounds(82, 320, 81, 23);
 				bSave.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						create();
@@ -88,7 +85,7 @@ public class CourseUI extends JFrame {
 				});
 		
 				bClear = new JButton("Clear");
-				bClear.setBounds(320, 261, 79, 23);
+				bClear.setBounds(315, 320, 79, 23);
 				bClear.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						cleanFields();
@@ -96,7 +93,7 @@ public class CourseUI extends JFrame {
 				});
 		
 				bUpdate = new JButton("Update");
-				bUpdate.setBounds(206, 261, 83, 23);
+				bUpdate.setBounds(200, 320, 83, 23);
 				bUpdate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						update();
@@ -105,7 +102,7 @@ public class CourseUI extends JFrame {
 				});
 		
 				bDelete = new JButton("Delete");
-				bDelete.setBounds(431, 261, 81, 23);
+				bDelete.setBounds(431, 320, 81, 23);
 				bDelete.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						delete();
@@ -163,7 +160,7 @@ public class CourseUI extends JFrame {
 		pTable.add(lblListOfPreQ);
 		
 		lblListOfSemOffered = new JLabel("LIST OF SEMESTERS OFFERED");
-		lblListOfSemOffered.setBounds(82, 225, 152, 14);
+		lblListOfSemOffered.setBounds(82, 295, 152, 14);
 		pTable.add(lblListOfSemOffered);
 		
 		label = new JLabel("");
@@ -191,10 +188,12 @@ public class CourseUI extends JFrame {
 				
 			}
 		});
-		btnHome.setBounds(542, 261, 89, 23);
+		btnHome.setBounds(542, 320, 89, 23);
 		pTable.add(btnHome);
 		
-		System.out.println(DataManager.getInstance().getCourseDataBaseMap().size());
+		
+		//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+		
 		Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		courseDataBaseMap = DataManager.getInstance().getCourseDataBaseMap();
 		
@@ -202,39 +201,67 @@ public class CourseUI extends JFrame {
 			 Course course = courseDataBaseMap.get(i);
 			 listOfPreReqCoursesList.add(course.getCourseName());
 		}
-		
-		System.out.println(listOfPreReqCoursesList.size());
-		
-		String[] myArray = new String[listOfPreReqCoursesList.size()];
-		
+		final String[] myArray = new String[listOfPreReqCoursesList.size()];
 		listOfPreReqCoursesList.toArray(myArray);
-		System.out.println(myArray.length);
-		selectListOfPreReqCoursesComboBox = new JComboBox(myArray);
-		selectListOfPreReqCoursesComboBox.setBounds(299, 197, 213, 20);
-		pTable.add(selectListOfPreReqCoursesComboBox);
+		
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(299, 203, 213, 80);
+		pTable.add(scrollPane_1);
+		
+		listComboSelection = new JList();
+		listComboSelection.setVisibleRowCount(4);
+		scrollPane_1.setViewportView(listComboSelection);
+		
+		
+		listComboSelection.setModel(new AbstractListModel() {
+			
+			
+			
+			
+			
+			
+			
+			
+		//String[] values = new String[] {"item1,", "item2, ", "item3, ", "item4, ", "item5, ", "item6"};
+		//	String[] myArray = new String[listOfPreReqCoursesList.size()];
+			//listOfPreReqCoursesList.toArray(myArray);
+			
+			
+			public int getSize() {
+				return myArray.length;
+			}
+			public Object getElementAt(int index) {
+				return myArray[index];
+			}
+		});
+		
+		
+		
+		
+		//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 		
 		rdbtnFall = new JRadioButton("fall");
-		rdbtnFall.setBounds(299, 221, 54, 23);
+		rdbtnFall.setBounds(299, 290, 54, 23);
 		pTable.add(rdbtnFall);
 		
 		rdbtnAbcd = new JRadioButton("spring");
-		rdbtnAbcd.setBounds(376, 221, 64, 23);
+		rdbtnAbcd.setBounds(377, 290, 64, 23);
 		pTable.add(rdbtnAbcd);
 		
-		
 		rdbtnSummer = new JRadioButton("summer");
-		rdbtnSummer.setBounds(442, 221, 109, 23);
+		rdbtnSummer.setBounds(441, 290, 109, 23);
 		pTable.add(rdbtnSummer);
 		
-		ButtonGroup bg=new ButtonGroup();  
+		/*ButtonGroup bg=new ButtonGroup();  
 		bg.add(rdbtnFall);
 		bg.add(rdbtnAbcd);  
-		bg.add(rdbtnSummer);  
+		bg.add(rdbtnSummer);  */
 		
-		/*rdbtnFall.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-		}
-	});*/
+		
+		
+		
+	
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				read();
@@ -299,25 +326,41 @@ public class CourseUI extends JFrame {
 	}
 	
 	String regex = "[0-9]+";
+	private JScrollPane scrollPane;
+	private JList listComboSelection;
+	private JScrollPane scrollPane_1;
+	
 	public void create() {
 		Course course = new Course();
 		Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		courseDataBaseMap = DataManager.getInstance().getCourseDataBaseMap();
 		
+		StringBuffer radiosbtnsselectd = new StringBuffer("123");
 		if (isValidData()) {
 			if(rdbtnFall.isSelected())
-			textSemestersOffered = AppContstants.SEMESTER_TYPE_FALL;
+				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_FALL+",");
 			if(rdbtnAbcd.isSelected())  
-			textSemestersOffered = AppContstants.SEMESTER_TYPE_SPRING;
-			if(rdbtnSummer.isSelected())  
-			textSemestersOffered = AppContstants.SEMESTER_TYPE_WINTER;
-				
+				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_SPRING+",");
+			if(rdbtnSummer.isSelected()) 
+				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_WINTER+",");
+			textSemestersOffered = radiosbtnsselectd.substring(0,radiosbtnsselectd.length()-1);
+			
+			
 			course.setCourseCap(Integer.valueOf(textCourseCapacity.getText()));
 			course.setCourseDescription(textDescription.getText());
 			course.setCourseName(textName.getText());
 			course.setCourseNumber(textCourseNumber.getText());
 			course.setCreditHours(textCreditHours.getText());
-			course.setListOfPreReqCourse((String)selectListOfPreReqCoursesComboBox.getSelectedItem());
+			
+			Object obj[] = listComboSelection.getSelectedValues();
+			StringBuffer sbf = new StringBuffer("");
+			for (int i = 0; i < obj.length; i++) {
+				sbf.append((String) obj[i]);
+				sbf.append(",");
+			}
+			if(sbf.length()>2)
+			selectListOfPreReqCourses = sbf.substring(0,sbf.length()-1).toString();
+			course.setListOfPreReqCourse(selectListOfPreReqCourses);
 			course.setListOfSemestersOffered(textSemestersOffered);
 			
 			int i = courseDataBaseMap.size();
@@ -390,7 +433,18 @@ public class CourseUI extends JFrame {
 			course.setCourseName(textName.getText());
 			course.setCourseNumber(textCourseNumber.getText());
 			course.setCreditHours(textCreditHours.getText());
-			course.setListOfPreReqCourse((String)selectListOfPreReqCoursesComboBox.getSelectedItem());
+			
+			Object obj[] = listComboSelection.getSelectedValues();
+			StringBuffer sbf = new StringBuffer("");
+			for (int i = 0; i < obj.length; i++) {
+				sbf.append((String) obj[i]);
+				sbf.append(",");
+			}
+			if(sbf.length()>2)
+			selectListOfPreReqCourses = sbf.substring(0,sbf.length()-1).toString();
+			course.setListOfPreReqCourse(selectListOfPreReqCourses);
+			
+			//course.setListOfPreReqCourse((String)selectListOfPreReqCoursesComboBox.getSelectedItem());
 			
 			if(rdbtnFall.isSelected()) 
 			textSemestersOffered = AppContstants.SEMESTER_TYPE_FALL;
@@ -444,11 +498,11 @@ public class CourseUI extends JFrame {
 		this.dispose();
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		CourseUI frmForm = new CourseUI();
 		 center = new Center(frmForm,1000,800);
         frmForm.setVisible(true);
         frmForm.setResizable(false);
         frmForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }*/
+    }
 }

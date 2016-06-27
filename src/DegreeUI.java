@@ -280,9 +280,6 @@ public class DegreeUI extends JFrame {
 			degree.setHoursRequired(textHoursRequired.getText());
 			degree.setCourseRequirement(textCourseRequirement.getText());
 			
-			
-			
-			
 			DataManager.getInstance().getDegreeDataBaseMap().put(getSelectedId(), degree);
 			JOptionPane.showMessageDialog(null, "degree Name " + textName.getText() + " updated successfully!");
 			refreshTable();

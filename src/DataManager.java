@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class DataManager {
 	
@@ -40,7 +39,8 @@ public  HashMap<Integer,StudentCourse> studentCourseDataBaseMap = new HashMap<In
 public  HashMap<Integer,University> universityDataBaseMap = new HashMap<Integer,University>();
 
 public  HashMap<String,String> loginStatusCheckMap = new HashMap<String,String>();
-
+public  HashMap<Integer,ForeCast> foreCastDegreeDataBaseMap = new HashMap<Integer,ForeCast>();
+public  HashMap<Integer,ScheduleAdjust> scheduleAdjustDataBaseMap = new HashMap<Integer,ScheduleAdjust>();
 
 
 public Map<Integer, Course> getCourseDataBaseMap() {
@@ -149,6 +149,32 @@ public HashMap<Integer, StudentCourse> getStudentCourseDataBaseMap() {
 public void setStudentCourseDataBaseMap(
 		HashMap<Integer, StudentCourse> studentCourseDataBaseMap) {
 	this.studentCourseDataBaseMap = studentCourseDataBaseMap;
+}
+
+public HashMap<Integer, ForeCast> getForeCastDegreeDataBaseMap() {
+	return foreCastDegreeDataBaseMap;
+}
+
+public void setForeCastDegreeDataBaseMap(
+		HashMap<Integer, ForeCast> foreCastDegreeDataBaseMap) {
+	this.foreCastDegreeDataBaseMap = foreCastDegreeDataBaseMap;
+}
+
+public static DataManager getDataManagerInstance() {
+	return dataManagerInstance;
+}
+
+public static void setDataManagerInstance(DataManager dataManagerInstance) {
+	DataManager.dataManagerInstance = dataManagerInstance;
+}
+
+public HashMap<Integer, ScheduleAdjust> getScheduleAdjustDataBaseMap() {
+	return scheduleAdjustDataBaseMap;
+}
+
+public void setScheduleAdjustDataBaseMap(
+		HashMap<Integer, ScheduleAdjust> scheduleAdjustDataBaseMap) {
+	this.scheduleAdjustDataBaseMap = scheduleAdjustDataBaseMap;
 }
 
 

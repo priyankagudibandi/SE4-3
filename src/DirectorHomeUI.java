@@ -18,7 +18,7 @@ public class DirectorHomeUI extends JFrame {
 	public DirectorHomeUI() {
 		
 		
-		lblHead  =new JLabel("ADMIN HOME");
+		lblHead  =new JLabel("DIRECTOR HOME");
 	    lblHead.setFont(new Font("TimesRoman",Font.BOLD,14));
 	    lblHead.setBounds(79,22,123,20);
 		
@@ -49,7 +49,7 @@ public class DirectorHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnManageDegreeUI.setBounds(250, 67, 153, 52);
+		btnManageDegreeUI.setBounds(261, 67, 153, 52);
 		pnl.add(btnManageDegreeUI);
 		
 		JButton btnManageFaultyUI = new JButton("MANAGE FACULTY UI");
@@ -60,7 +60,7 @@ public class DirectorHomeUI extends JFrame {
 				
 			}
 		});
-		btnManageFaultyUI.setBounds(429, 67, 135, 52);
+		btnManageFaultyUI.setBounds(456, 67, 153, 52);
 		pnl.add(btnManageFaultyUI);
 		
 		JButton btnManageRoomsUi = new JButton("MANAGE ROOMS UI");
@@ -82,7 +82,7 @@ public class DirectorHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnStudentReportUI.setBounds(250, 161, 153, 52);
+		btnStudentReportUI.setBounds(261, 161, 153, 52);
 		pnl.add(btnStudentReportUI);
 		
 		JButton btnManageSchedule = new JButton("STUDENT COURSE");
@@ -92,7 +92,7 @@ public class DirectorHomeUI extends JFrame {
 				disposeWindow();
 			}
 		});
-		btnManageSchedule.setBounds(434, 161, 130, 52);
+		btnManageSchedule.setBounds(461, 161, 148, 52);
 		pnl.add(btnManageSchedule);
 		
 		JButton btnLogout = new JButton("LOGOUT");
@@ -104,8 +104,30 @@ public class DirectorHomeUI extends JFrame {
 				
 			}
 		});
-		btnLogout.setBounds(68, 250, 153, 52);
+		btnLogout.setBounds(68, 333, 153, 52);
 		pnl.add(btnLogout);
+		
+		JButton btnUpdateForecast = new JButton("UPDATE FORECAST");
+		btnUpdateForecast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ForeCastUI.displayForeCastUI();
+				disposeWindow();
+				
+			}
+		});
+		btnUpdateForecast.setBounds(68, 244, 153, 60);
+		pnl.add(btnUpdateForecast);
+		
+		JButton btnNewButton = new JButton("SCHEDULE ADJUST");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScheduleAdjustUI.displayScheduleAdjustUI();
+				disposeWindow();
+				
+			}
+		});
+		btnNewButton.setBounds(261, 244, 153, 60);
+		pnl.add(btnNewButton);
 	}	
 		
 	

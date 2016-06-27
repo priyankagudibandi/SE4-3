@@ -34,8 +34,8 @@ public class CSVFileReader {
 				course.setCourseCap(Integer.valueOf(fields[4]));
 				course.setListOfPreReqCourse(fields[8].trim());
 				course.setListOfSemestersOffered(fields[7].trim());
-				System.out.println(i);
-				System.out.println(fields[1]);
+				//System.out.println(i);
+				//System.out.println(fields[1]);
 				courseDataBaseMap.put(i, course);
 				} 
 			br.close(); 
@@ -119,6 +119,66 @@ public class CSVFileReader {
 				} 
 			br.close(); 
 			DataManager.getInstance().setDegreeDataBaseMap(degreeDataBaseMap);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	
+	public static void degreeForcastCSVReader(){
+		ForeCast foreCast = null;
+		BufferedReader br;
+		HashMap<Integer,ForeCast> foreCastDegreeDataBaseMap = new HashMap<Integer,ForeCast>();
+		foreCastDegreeDataBaseMap = DataManager.getInstance().getForeCastDegreeDataBaseMap();
+		
+		try {
+			br = new BufferedReader(new FileReader("TestDataDegrees.csv"));
+			String line = br.readLine(); // Reading header, Ignoring 
+			int i=-1;
+			while ((line = br.readLine()) != null && !line.isEmpty()) { 
+				i++;
+				foreCast = new ForeCast();
+				String[] fields = line.split(","); 
+				
+				foreCast.setDegreeCode(fields[0]);
+				foreCast.setExpectedNumOfStudents("");
+				
+				foreCastDegreeDataBaseMap.put(i, foreCast);
+				} 
+			br.close(); 
+			DataManager.getInstance().setForeCastDegreeDataBaseMap(foreCastDegreeDataBaseMap);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	public static void scheduleAdjustCSVReader(){
+		ScheduleAdjust scheduleAdjust = null;
+		BufferedReader br;
+		HashMap<Integer,ScheduleAdjust> scheduleAdjustDataBaseMap = new HashMap<Integer,ScheduleAdjust>();
+		scheduleAdjustDataBaseMap = DataManager.getInstance().getScheduleAdjustDataBaseMap();
+		
+		try {
+			br = new BufferedReader(new FileReader("TestDataCourses.csv"));
+			String line = br.readLine();
+			int i=-1;
+			while ((line = br.readLine()) != null && !line.isEmpty()) { 
+				i++;
+				scheduleAdjust = new ScheduleAdjust();
+				String[] fields = line.split(","); 
+				
+				scheduleAdjust.setCourseName(fields[1]);
+				scheduleAdjust.setFactultyName("");
+				scheduleAdjust.setSectionNumber("");
+				
+				scheduleAdjustDataBaseMap.put(i, scheduleAdjust);
+				} 
+			br.close(); 
+			DataManager.getInstance().setScheduleAdjustDataBaseMap(scheduleAdjustDataBaseMap);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
