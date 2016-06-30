@@ -9,7 +9,10 @@ public interface AppContstants {
 	
 	String SEMESTER_TYPE_FALL="Fall";
 	String SEMESTER_TYPE_SPRING="Spring";
-	String SEMESTER_TYPE_WINTER="Winter";
+	String SEMESTER_TYPE_SUMMER="Summer";
+	
+	String YES="Y";
+	String NO="N";
 	
 
 }

@@ -1,6 +1,7 @@
 
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,8 @@ public  HashMap<String,String> loginStatusCheckMap = new HashMap<String,String>(
 public  HashMap<Integer,ForeCast> foreCastDegreeDataBaseMap = new HashMap<Integer,ForeCast>();
 public  HashMap<Integer,ScheduleAdjust> scheduleAdjustDataBaseMap = new HashMap<Integer,ScheduleAdjust>();
 
+
+public HashMap<Integer,GenerateScheduleBean> generatedScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateScheduleBean>();
 
 public Map<Integer, Course> getCourseDataBaseMap() {
 	return courseDataBaseMap;
@@ -176,6 +179,18 @@ public void setScheduleAdjustDataBaseMap(
 		HashMap<Integer, ScheduleAdjust> scheduleAdjustDataBaseMap) {
 	this.scheduleAdjustDataBaseMap = scheduleAdjustDataBaseMap;
 }
+
+public HashMap<Integer, GenerateScheduleBean> getGeneratedScheduleDataBaseMap() {
+	return generatedScheduleDataBaseMap;
+}
+
+public void setGeneratedScheduleDataBaseMap(
+		HashMap<Integer, GenerateScheduleBean> generatedScheduleDataBaseMap) {
+	this.generatedScheduleDataBaseMap = generatedScheduleDataBaseMap;
+}
+
+
+
 
 
 }

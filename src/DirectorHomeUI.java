@@ -128,6 +128,17 @@ public class DirectorHomeUI extends JFrame {
 		});
 		btnNewButton.setBounds(261, 244, 153, 60);
 		pnl.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("GENERATE SCHEDULE");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GenerateScheduleUI.displayGenerateScheduleUI();
+				disposeWindow();
+				
+			}
+		});
+		btnNewButton_1.setBounds(456, 244, 153, 60);
+		pnl.add(btnNewButton_1);
 	}	
 		
 	
@@ -142,12 +153,4 @@ public class DirectorHomeUI extends JFrame {
 	public void disposeWindow(){
 		this.dispose();
 	}
-	
-	/*public static void main(String args[]) {
-		DirectorHomeUI frmLogin = new DirectorHomeUI();
-		center = new Center(frmLogin,1000,800);
-        frmLogin.setVisible(true);
-        frmLogin.setResizable(false);
-        frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}*/
 }

@@ -33,7 +33,12 @@ public class CSVFileReader {
 				course.setCreditHours(fields[3].trim());
 				course.setCourseCap(Integer.valueOf(fields[4]));
 				course.setListOfPreReqCourse(fields[8].trim());
-				course.setListOfSemestersOffered(fields[7].trim());
+				//course.setListOfSemestersOffered(fields[7].trim());
+				
+				course.setOfferedFall(fields[5].trim());
+				course.setOfferedSpring(fields[6].trim());
+				course.setOfferedSummer(fields[7].trim());
+				course.setFacultyName(fields[9].trim());
 				//System.out.println(i);
 				//System.out.println(fields[1]);
 				courseDataBaseMap.put(i, course);

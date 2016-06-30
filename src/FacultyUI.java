@@ -315,11 +315,11 @@ public class FacultyUI extends JFrame {
 		this.dispose();
 	}
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		FacultyUI frmForm = new FacultyUI();
 		 center = new Center(frmForm,1000,800);
         frmForm.setVisible(true);
         frmForm.setResizable(false);
         frmForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }*/
+    }
 }

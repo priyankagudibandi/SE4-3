@@ -70,7 +70,8 @@ public class CourseUI extends JFrame {
 
 		getContentPane().add(pTable);
 		jTable = new JTable();
-		jTable.setModel(new DefaultTableModel(new Object[5][5], new String[] {"courseName", "courseCode", "courseDescription", "creditHours", "courseCap","listOfPreReqCourse","listOfSemestersOffered" }));
+		jTable.setModel(new DefaultTableModel(new Object[5][5], new String[]
+				{"courseName", "courseCode", "courseDescription", "creditHours", "courseCap","listOfPreReqCourse","OfferedFall","OfferedSpring","OfferedSummer","Faculty" }));//OfferedFall?	OfferedSpring?	OfferedSummer
 		spTable = new JScrollPane();
 		spTable.setBounds(0, 354, 879, 196);
 		spTable.setViewportView(jTable);  
@@ -191,9 +192,6 @@ public class CourseUI extends JFrame {
 		btnHome.setBounds(542, 320, 89, 23);
 		pTable.add(btnHome);
 		
-		
-		//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-		
 		Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		courseDataBaseMap = DataManager.getInstance().getCourseDataBaseMap();
 		
@@ -216,18 +214,6 @@ public class CourseUI extends JFrame {
 		
 		listComboSelection.setModel(new AbstractListModel() {
 			
-			
-			
-			
-			
-			
-			
-			
-		//String[] values = new String[] {"item1,", "item2, ", "item3, ", "item4, ", "item5, ", "item6"};
-		//	String[] myArray = new String[listOfPreReqCoursesList.size()];
-			//listOfPreReqCoursesList.toArray(myArray);
-			
-			
 			public int getSize() {
 				return myArray.length;
 			}
@@ -235,11 +221,6 @@ public class CourseUI extends JFrame {
 				return myArray[index];
 			}
 		});
-		
-		
-		
-		
-		//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 		
 		rdbtnFall = new JRadioButton("fall");
 		rdbtnFall.setBounds(299, 290, 54, 23);
@@ -253,15 +234,6 @@ public class CourseUI extends JFrame {
 		rdbtnSummer.setBounds(441, 290, 109, 23);
 		pTable.add(rdbtnSummer);
 		
-		/*ButtonGroup bg=new ButtonGroup();  
-		bg.add(rdbtnFall);
-		bg.add(rdbtnAbcd);  
-		bg.add(rdbtnSummer);  */
-		
-		
-		
-		
-	
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				read();
@@ -305,12 +277,14 @@ public class CourseUI extends JFrame {
 			jTable.setValueAt(course.getCreditHours(), i, 3);
 			jTable.setValueAt(course.getCourseCap(), i, 4);
 			jTable.setValueAt(course.getListOfPreReqCourse(), i, 5);
-			jTable.setValueAt(course.getListOfSemestersOffered(), i, 6);
+			jTable.setValueAt(course.getOfferedFall(), i, 6);
+			jTable.setValueAt(course.getOfferedSpring(), i, 7);
+			jTable.setValueAt(course.getOfferedSummer(), i, 8);
+			jTable.setValueAt(course.getFacultyName(), i, 9);
 			}
 		}
-		
-		
 	}
+	
 
 	public int getSelectedId() {
 		int selectedRow = jTable.getSelectedRow();
@@ -335,22 +309,29 @@ public class CourseUI extends JFrame {
 		Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		courseDataBaseMap = DataManager.getInstance().getCourseDataBaseMap();
 		
-		StringBuffer radiosbtnsselectd = new StringBuffer("123");
 		if (isValidData()) {
-			if(rdbtnFall.isSelected())
-				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_FALL+",");
-			if(rdbtnAbcd.isSelected())  
-				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_SPRING+",");
-			if(rdbtnSummer.isSelected()) 
-				radiosbtnsselectd.append(AppContstants.SEMESTER_TYPE_WINTER+",");
-			textSemestersOffered = radiosbtnsselectd.substring(0,radiosbtnsselectd.length()-1);
-			
 			
 			course.setCourseCap(Integer.valueOf(textCourseCapacity.getText()));
 			course.setCourseDescription(textDescription.getText());
 			course.setCourseName(textName.getText());
 			course.setCourseNumber(textCourseNumber.getText());
 			course.setCreditHours(textCreditHours.getText());
+			
+			if(rdbtnFall.isSelected()){
+				course.setOfferedFall(AppContstants.YES);
+			}else{
+				course.setOfferedFall(AppContstants.NO);
+			}
+			if(rdbtnAbcd.isSelected())  {
+				course.setOfferedSpring(AppContstants.YES);
+			}else{
+				course.setOfferedSpring(AppContstants.NO);
+			}
+			if(rdbtnSummer.isSelected()) {
+				course.setOfferedSummer(AppContstants.YES);
+			}else{
+				course.setOfferedSummer(AppContstants.NO);
+			}
 			
 			Object obj[] = listComboSelection.getSelectedValues();
 			StringBuffer sbf = new StringBuffer("");
@@ -360,8 +341,9 @@ public class CourseUI extends JFrame {
 			}
 			if(sbf.length()>2)
 			selectListOfPreReqCourses = sbf.substring(0,sbf.length()-1).toString();
+			
 			course.setListOfPreReqCourse(selectListOfPreReqCourses);
-			course.setListOfSemestersOffered(textSemestersOffered);
+			//course.setListOfSemestersOffered(textSemestersOffered);
 			
 			int i = courseDataBaseMap.size();
 			courseDataBaseMap.put(i, course);
@@ -411,13 +393,19 @@ public class CourseUI extends JFrame {
 			textCreditHours.setText(course.getCreditHours());
 			textCourseCapacity.setText(String.valueOf(course.getCourseCap()));
 			
-			
-			if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_FALL))
+			if(!course.getOfferedFall().isEmpty()&& course.getOfferedFall().equals(AppContstants.YES))
 				rdbtnFall.setSelected(true);
-				if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_SPRING))
-					rdbtnAbcd.setSelected(true);
-					if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_WINTER))
-						rdbtnSummer.setSelected(true);
+			else
+				rdbtnFall.setSelected(false);
+			if(!course.getOfferedSpring().isEmpty()&& course.getOfferedSpring().equals(AppContstants.YES))
+				rdbtnAbcd.setSelected(true);
+			else
+				rdbtnAbcd.setSelected(false);
+			if(!course.getOfferedSummer().isEmpty()&& course.getOfferedSummer().equals(AppContstants.YES))
+				rdbtnSummer.setSelected(true);
+			else
+				rdbtnSummer.setSelected(false);
+			
 			//textListOfSemestersOffered.setText(course.getListOfSemestersOffered());
 			//selectListOfPreReqCoursesComboBox.setText(course.getListOfPreReqCourse());
 		}
@@ -433,6 +421,22 @@ public class CourseUI extends JFrame {
 			course.setCourseName(textName.getText());
 			course.setCourseNumber(textCourseNumber.getText());
 			course.setCreditHours(textCreditHours.getText());
+			
+			if(rdbtnFall.isSelected()){
+				course.setOfferedFall(AppContstants.YES);
+			}else{
+				course.setOfferedFall(AppContstants.NO);
+			}
+			if(rdbtnAbcd.isSelected())  {
+				course.setOfferedSpring(AppContstants.YES);
+			}else{
+				course.setOfferedSpring(AppContstants.NO);
+			}
+			if(rdbtnSummer.isSelected()) {
+				course.setOfferedSummer(AppContstants.YES);
+			}else{
+				course.setOfferedSummer(AppContstants.NO);
+			}
 			
 			Object obj[] = listComboSelection.getSelectedValues();
 			StringBuffer sbf = new StringBuffer("");
@@ -451,7 +455,7 @@ public class CourseUI extends JFrame {
 			if(rdbtnAbcd.isSelected())
 			textSemestersOffered = AppContstants.SEMESTER_TYPE_SPRING;
 			if(rdbtnSummer.isSelected())
-			textSemestersOffered = AppContstants.SEMESTER_TYPE_WINTER;
+			textSemestersOffered = AppContstants.SEMESTER_TYPE_SUMMER;
 			course.setListOfSemestersOffered(textSemestersOffered);
 			
 			

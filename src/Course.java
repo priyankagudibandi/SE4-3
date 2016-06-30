@@ -10,6 +10,14 @@ public class Course {
 	private String listOfPreReqCourse;
 	private String listOfSemestersOffered;
 	
+	private String offeredFall;
+	private String offeredSpring;
+	private String offeredSummer;
+	private String facultyName;
+	
+	//OfferedFall?	OfferedSpring?	OfferedSummer?
+
+	
 	/*private String OfferedFall;
 	private String offeredSpring;
 	private String offeredSummer;
@@ -147,6 +155,35 @@ public class Course {
 			return false;
 		return true;
 	}
+	
+	
+	public String getOfferedFall() {
+		return offeredFall;
+	}
+	public void setOfferedFall(String offeredFall) {
+		this.offeredFall = offeredFall;
+	}
+	public String getOfferedSpring() {
+		return offeredSpring;
+	}
+	public void setOfferedSpring(String offeredSpring) {
+		this.offeredSpring = offeredSpring;
+	}
+	public String getOfferedSummer() {
+		return offeredSummer;
+	}
+	public void setOfferedSummer(String offeredSummer) {
+		this.offeredSummer = offeredSummer;
+	}
+	public String getFacultyName() {
+		return facultyName;
+	}
+	public void setFacultyName(String facultyName) {
+		this.facultyName = facultyName;
+	}
+	
+	
+	
 	
 	
 	
