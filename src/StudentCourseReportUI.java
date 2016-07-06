@@ -109,8 +109,8 @@ public class StudentCourseReportUI extends JFrame {
 			if(studentCourse!=null){
 			jTable.setValueAt(studentCourse.getId(), i, 0);
 			jTable.setValueAt(studentCourse.getCourseNumber(), i, 1);
-			jTable.setValueAt(studentCourse.getGrade(), i, 2);
-			jTable.setValueAt(studentCourse.getTerm(), i, 3);
+			jTable.setValueAt(studentCourse.getCourseName(), i, 2);
+			jTable.setValueAt(studentCourse.getSemester(), i, 3);
 			//jTable.setValueAt(student.getCreditHours(), i, 3);
 			
 			}

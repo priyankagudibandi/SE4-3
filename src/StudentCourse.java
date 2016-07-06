@@ -5,17 +5,10 @@ public class StudentCourse {
 	
 	private String id;
 	private String courseNumber;
-	private String Grade;
-	private String Term;
+	private String courseName;  //Grade;
+	private String semester;     //Term;
 
-	public StudentCourse(String id, String courseNumber, String grade,
-			String term) {
-		super();
-		this.id = id;
-		this.courseNumber = courseNumber;
-		Grade = grade;
-		Term = term;
-	}
+	private String text;   
 
 	public StudentCourse() {
 	}
@@ -36,22 +29,31 @@ public class StudentCourse {
 		this.courseNumber = courseNumber;
 	}
 
-	public String getGrade() {
-		return Grade;
+	public String getCourseName() {
+		return courseName;
 	}
 
-	public void setGrade(String grade) {
-		Grade = grade;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
-	public String getTerm() {
-		return Term;
+	public String getSemester() {
+		return semester;
 	}
 
-	public void setTerm(String term) {
-		Term = term;
+	public void setSemester(String semester) {
+		this.semester = semester;
 	}
 
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	
 	
 
 	

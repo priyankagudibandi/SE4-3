@@ -5,7 +5,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,36 +17,32 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
 public class GenerateTestScheduleUI extends JFrame {
 	private JPanel pForm, pTable;
-	private JLabel labelSectionFill, labelSectionOverage,statusLabel11111;
-	private JTextField textSectionFill, textSectionOverage;
+	private JLabel labelSemester,statusLabel11111;
+	private JTextField textSemester;
 	private JButton buttonGetSchedule, bClear;
 	private JScrollPane spTable;
 	private JTable jTable;
 	private static Center center;
 	private JLabel lblTestdfatrr;
-	private JLabel lblListOfSemOffered;
 	private JLabel label;
 	String listOfPreReqCourses [] ={"Admin","Director"}; //new String[1000];  //{"Admin","Director"};
 	List<String> listOfPreReqCoursesList = new ArrayList<String>();
 	private String textSemestersOffered;
 	private String selectListOfPreReqCourses="";
-	JRadioButton rdbtnFall,rdbtnAbcd,rdbtnSummer;
 	private JList list;
 	public GenerateTestScheduleUI() {
 		setTitle("OKLAHOMA CHRISTIAN UNIVERSITY");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		CSVFileReader.courseCSVReader();
+		//CSVFileReader.courseCSVReader();
 		createForm();
 		refreshTable();
 	}
@@ -66,7 +61,7 @@ public class GenerateTestScheduleUI extends JFrame {
 
 		getContentPane().add(pTable);
 		jTable = new JTable();
-		jTable.setModel(new DefaultTableModel(new Object[5][5], new String[] {"SEMESTER", "COURSE NAME", "SECTION NUMBER", "FACULTY"}));
+		jTable.setModel(new DefaultTableModel(new Object[5][5], new String[] {"NUMBER OF STUDENTS", "NUMBER PERCENTAGE REQUIRED COURSE", "NUMBER AND STUDENTS WITHOUT REQUIRED COURSESS"}));
 		spTable = new JScrollPane();
 		spTable.setBounds(0, 354, 879, 196);
 		spTable.setViewportView(jTable);  
@@ -87,38 +82,25 @@ public class GenerateTestScheduleUI extends JFrame {
 						cleanFields();
 					}
 				});
-		textSectionFill = new JTextField();
-		textSectionFill.setBounds(299, 116, 213, 20);
-		textSectionFill.setText("25");
+		textSemester = new JTextField();
+		textSemester.setBounds(299, 116, 213, 20);
+		textSemester.setText("2016SU");
 		
-		labelSectionFill = new JLabel("SECTION FILL %");
-		labelSectionFill.setBounds(82, 119, 152, 14);
-		
-		labelSectionOverage = new JLabel("SECTION OVERAGE %");
-		labelSectionOverage.setBounds(82, 144, 152, 14);
-		labelSectionOverage.setHorizontalAlignment(SwingConstants.LEFT);
-		textSectionOverage = new JTextField();
-		textSectionOverage.setBounds(299, 141, 213, 20);
-		textSectionOverage.setText("17");
+		labelSemester = new JLabel("SEMESTER");
+		labelSemester.setBounds(82, 119, 152, 14);
 		
 		
 		pTable.setLayout(null);
-		pTable.add(labelSectionFill);
-		pTable.add(labelSectionOverage);
+		pTable.add(labelSemester);
 		pTable.add(buttonGetSchedule);
 		pTable.add(bClear);
-		pTable.add(textSectionFill);
-		pTable.add(textSectionOverage);
+		pTable.add(textSemester);
 		pTable.add(spTable);
 	       
-		lblTestdfatrr = new JLabel("GENERATE SCHEDULE");
+		lblTestdfatrr = new JLabel("GENERATE TEST SCHEDULE");
 		lblTestdfatrr.setFont(new Font("TimesRoman",Font.BOLD,16));
 		lblTestdfatrr.setBounds(82, 17, 207, 14);
 		pTable.add(lblTestdfatrr);
-		
-		lblListOfSemOffered = new JLabel("LIST OF SEMESTERS OFFERED");
-		lblListOfSemOffered.setBounds(82, 94, 152, 14);
-		pTable.add(lblListOfSemOffered);
 		
 		label = new JLabel("");
 		label.setBounds(166, 200, 46, 14);
@@ -156,27 +138,6 @@ public class GenerateTestScheduleUI extends JFrame {
 		}
 		final String[] myArray = new String[listOfPreReqCoursesList.size()];
 		listOfPreReqCoursesList.toArray(myArray);
-		
-		
-		
-		
-		//&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-		
-		rdbtnFall = new JRadioButton("fall");
-		rdbtnFall.setBounds(300, 90, 54, 23);
-		pTable.add(rdbtnFall);
-		
-		rdbtnAbcd = new JRadioButton("spring");
-		rdbtnAbcd.setBounds(374, 90, 64, 23);
-		pTable.add(rdbtnAbcd);
-		
-		rdbtnSummer = new JRadioButton("summer");
-		rdbtnSummer.setBounds(450, 90, 109, 23);
-		pTable.add(rdbtnSummer);
-		
-		buttonGroup.add(rdbtnFall);
-		buttonGroup.add(rdbtnAbcd);
-		buttonGroup.add(rdbtnSummer);
 		jTable.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				read();
@@ -185,30 +146,30 @@ public class GenerateTestScheduleUI extends JFrame {
 	}
 
 	public void cleanFields() {
-		textSectionFill.setText("");
-		textSectionOverage.setText("");
-		rdbtnFall.setSelected(false);
-		rdbtnAbcd.setSelected(false);
-		rdbtnSummer.setSelected(false);
+		textSemester.setText("");
 	}
 
 	
 	public void refreshTable() {
 		DefaultTableModel tableModel = (DefaultTableModel) jTable.getModel();
 		tableModel.setNumRows(0);
-		GenerateScheduleBean generateScheduleBean = null;
+		GenerateTestScheduleBean generateTestScheduleBean = null;
 		
-		HashMap<Integer,GenerateScheduleBean> generatedScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateScheduleBean>();
-		generatedScheduleDataBaseMap = DataManager.getInstance().getGeneratedScheduleDataBaseMap();
+		HashMap<Integer,GenerateTestScheduleBean> generatedTestScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateTestScheduleBean>();
+		generatedTestScheduleDataBaseMap = DataManager.getInstance().getGeneratedTestScheduleDataBaseMap();
 		
-		for (int i = 0; i < generatedScheduleDataBaseMap.size(); i++) {
-			generateScheduleBean = generatedScheduleDataBaseMap.get(i);
+		System.out.println(generatedTestScheduleDataBaseMap.size());
+		
+		for (int i = 0; i < generatedTestScheduleDataBaseMap.size(); i++) {
+			generateTestScheduleBean = generatedTestScheduleDataBaseMap.get(0);
+			
+			System.out.println(generateTestScheduleBean.getNumberAndPercentageWithoutReqCourses());
 			tableModel.addRow(new Object[] { 1 });
-			if(generateScheduleBean!=null){
-			jTable.setValueAt(generateScheduleBean.getSemester(), i, 0);
-			jTable.setValueAt(generateScheduleBean.getCourseName(), i, 1);
-			jTable.setValueAt(generateScheduleBean.getCourseNumber(), i, 2);
-			jTable.setValueAt(generateScheduleBean.getFacultyName(), i, 3);
+			if(generateTestScheduleBean!=null){
+			//jTable.setValueAt(generateTestScheduleBean.getNumberOfStudents(), i, 0);
+			jTable.setValueAt(272, i, 0);
+			jTable.setValueAt(generateTestScheduleBean.getNumberAndPercentageWithReqCourses(), i, 1);
+			jTable.setValueAt(generateTestScheduleBean.getNumberAndPercentageWithoutReqCourses(), i, 2);
 			}
 		}
 	}
@@ -232,111 +193,86 @@ public class GenerateTestScheduleUI extends JFrame {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	public void generateSchedule() {
 		DataUtil dataUtil = new DataUtil();
 		dataUtil.test();
-		Course course = new Course();
+		StudentCourse studentCourse = new StudentCourse();
 		Semester semester = new Semester();
-		GenerateScheduleBean generateScheduleBean = null;
+		GenerateTestScheduleBean generateTestScheduleBean = null;
 		
-		HashMap<Integer,GenerateScheduleBean> generatedScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateScheduleBean>();
-		generatedScheduleDataBaseMap = DataManager.getInstance().getGeneratedScheduleDataBaseMap();
-		//System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
-		generatedScheduleDataBaseMap.clear();
-		//System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
 		
-		HashMap<Integer,Semester> semesterDataBaseMap = new HashMap<Integer,Semester>();
-		semesterDataBaseMap = DataManager.getInstance().getSemesterDataBaseMap();
+		HashMap<Integer,Student> studentDataBaseMap = new HashMap<Integer,Student>();
+		studentDataBaseMap = DataManager.getInstance().getStudentDataBaseMap();
 		
-		 Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
-		 courseDataBaseMap =  DataManager.getInstance().getCourseDataBaseMap();
-		// System.out.println("**********************generateSchedule() courseDataBaseMap: "+courseDataBaseMap.size());
+		if(studentDataBaseMap ==null){
+			CSVFileReader.studentCSVReader();
+		}
+	  studentDataBaseMap  = DataManager.getInstance().getStudentDataBaseMap();
+		
+		HashMap<Integer,StudentCourse> studentCourseDataBaseMap = new HashMap<Integer,StudentCourse>();
+		studentCourseDataBaseMap = DataManager.getInstance().getStudentCourseDataBaseMap();
+		
+		
+		
+		if(studentCourseDataBaseMap.size()==0){
+			CSVFileReader.studentCourseCSVReader();
+		}
+		
+		
+		HashMap<Integer,GenerateTestScheduleBean> generatedTestScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateTestScheduleBean>();
+		generatedTestScheduleDataBaseMap = DataManager.getInstance().getGeneratedTestScheduleDataBaseMap();
+		
+		generatedTestScheduleDataBaseMap.clear();
 		
 		if (isValidData()) {
 			
-			course.setCourseName(textSectionFill.getText());
-			course.setCourseNumber(textSectionOverage.getText());
+			HashMap<String,String> objectsMap = new LinkedHashMap<String,String>();
+			objectsMap = DataManager.getInstance().getKeycodesObjectsMap();
 			
-			List<GenerateScheduleBean> generateScheduleBeanFallList= new ArrayList<GenerateScheduleBean>();
-			List<GenerateScheduleBean> generateScheduleBeanSpringList = new ArrayList<GenerateScheduleBean>();
-			List<GenerateScheduleBean> generateScheduleBeanSummerList = new ArrayList<GenerateScheduleBean>();
+			HashMap<String,String> objectsNotReqMap = new LinkedHashMap<String,String>();
+			objectsMap = DataManager.getInstance().getKeycodesObjectsMap();
 			
-			HashMap<String,String> keycodesObjectsMap = new LinkedHashMap<String,String>();
-			keycodesObjectsMap = DataManager.getInstance().getKeycodesObjectsMap();
+			String key = "";   //id+course
+			String value ="";  //sem+course
 			
-			String courseName;
-			String courseCodes ="CENG 5013#CENG 5013-01 CENG 5013#CENG 5013-01";
-			int j=0;
-			int k =0;
-			
-			for (int i = 0; i < courseDataBaseMap.size(); i++) {
-				course = 	courseDataBaseMap.get(i);
-				generateScheduleBean= new GenerateScheduleBean();
-				
-				courseName =course.getCourseName();
-				courseCodes = keycodesObjectsMap.get(courseName.trim());  //CENG 5013#CENG 5013-01
-				courseCodes = courseCodes.substring(10,courseCodes.length());
-				
-				generateScheduleBean.setCourseName(courseName);
-				generateScheduleBean.setFacultyName(course.getFacultyName());
-				generateScheduleBean.setCourseNumber(courseCodes);
-
-				if(rdbtnFall.isSelected()&& course.getOfferedFall().equals(AppContstants.YES)){
-					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_FALL);	
-					k++;
-					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
+			for (int i = 0; i < studentCourseDataBaseMap.size(); i++) {
+				studentCourse = 	studentCourseDataBaseMap.get(i);
+				if(studentCourse !=null){
+					if (studentCourse.getSemester().equals(textSemester.getText())){
+						key= studentCourse.getId()+"#"+studentCourse.getCourseName();
+						value = studentCourse.getSemester()+"#"+studentCourse.getCourseName();
+						objectsMap.put(key, value);
+					}else{
+						key= studentCourse.getId()+"#"+studentCourse.getCourseName();
+						value = studentCourse.getSemester()+"#"+studentCourse.getCourseName();
+						objectsNotReqMap.put(key, value);
+					}
+					
 				}
-				
-				else if(rdbtnAbcd.isSelected()&& course.getOfferedSpring().equals(AppContstants.YES)){
-					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_SPRING);	
-					k++;
-					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
-				}
-				
-				else if(rdbtnSummer.isSelected()&& course.getOfferedSummer().equals(AppContstants.YES)) {
-					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_SUMMER);	
-					k++;
-					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
-				}
-				
 			
-				
-				}
-			  
+				}//end for
 			
+			generateTestScheduleBean = new GenerateTestScheduleBean();
+			generateTestScheduleBean.setSemester(textSemester.getText());
+			generateTestScheduleBean.setNumberOfStudents(DataManager.getInstance().getStudentDataBaseMap().size());
+			generateTestScheduleBean.setNumberAndPercentageWithReqCourses(objectsMap.size());
+			generateTestScheduleBean.setNumberAndPercentageWithoutReqCourses(objectsNotReqMap.size());
 			
+			generatedTestScheduleDataBaseMap.put(0, generateTestScheduleBean);
+			
+			DataManager.getInstance().setGeneratedTestScheduleDataBaseMap(generatedTestScheduleDataBaseMap);
 		}
 			
-		
-			System.out.println("************courseDataBaseMap.size() "+courseDataBaseMap.size());
-			System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
-			if(generatedScheduleDataBaseMap.size()<=20){
-				refreshTable();
-				cleanFields();
-				}
+		refreshTable();
+		cleanFields();
 			
 			
 	}
 
 	
 	public boolean isValidData() {
-		if(!rdbtnFall.isSelected()&& !rdbtnAbcd.isSelected() && !rdbtnSummer.isSelected()){
-			JOptionPane.showMessageDialog(null, "Select Semester!");
-			return false;
-		}
-		if(!textSectionFill.getText().matches(regex)){
-			JOptionPane.showMessageDialog(null, "Capacity must be number!");
-			return false;
-		}
-		if(!textSectionOverage.getText().matches(regex)){
-			JOptionPane.showMessageDialog(null, "Capacity must be number!");
+		if(textSemester.getText().equals("")){
+			JOptionPane.showMessageDialog(null, "please enter semester");
 			return false;
 		}
 		else
@@ -348,20 +284,10 @@ public class GenerateTestScheduleUI extends JFrame {
 		if (getSelectedId() >= 0) {
 			Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 			courseDataBaseMap = DataManager.getInstance().getCourseDataBaseMap();
-			
 			Course course = courseDataBaseMap.get(getSelectedId());
 			
 			cleanFields();
-			textSectionFill.setText(course.getCourseName());
-			textSectionOverage.setText(course.getCourseNumber());
-			
-			
-			if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_FALL))
-				rdbtnFall.setSelected(true);
-				if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_SPRING))
-					rdbtnAbcd.setSelected(true);
-					if(!course.getListOfSemestersOffered().isEmpty()&& course.getListOfSemestersOffered().equals(AppContstants.SEMESTER_TYPE_SUMMER))
-						rdbtnSummer.setSelected(true);
+			textSemester.setText(course.getCourseName());
 		}
 	}
 

@@ -298,8 +298,8 @@ public class CSVFileReader {
 				
 				studentCourse.setId(fields[0].trim());
 				studentCourse.setCourseNumber(fields[1].trim());
-				studentCourse.setGrade(fields[3].trim());
-				studentCourse.setTerm(fields[4].trim());
+				studentCourse.setCourseName(fields[2].trim());
+				studentCourse.setSemester(fields[3].trim());
 				studentCourseDataBaseMap.put(i, studentCourse);
 				} 
 			br.close(); 

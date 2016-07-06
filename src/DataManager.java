@@ -48,6 +48,8 @@ public HashMap<Integer,GenerateScheduleBean> generatedScheduleDataBaseMap = new 
 HashMap<String,String> keycodesObjectsMap = new LinkedHashMap<String,String>();
 
 
+public HashMap<Integer,GenerateTestScheduleBean> generatedTestScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateTestScheduleBean>();
+
 
 
 public Map<Integer, Course> getCourseDataBaseMap() {
@@ -199,6 +201,15 @@ public HashMap<String, String> getKeycodesObjectsMap() {
 
 public void setKeycodesObjectsMap(HashMap<String, String> keycodesObjectsMap) {
 	this.keycodesObjectsMap = keycodesObjectsMap;
+}
+
+public HashMap<Integer, GenerateTestScheduleBean> getGeneratedTestScheduleDataBaseMap() {
+	return generatedTestScheduleDataBaseMap;
+}
+
+public void setGeneratedTestScheduleDataBaseMap(
+		HashMap<Integer, GenerateTestScheduleBean> generatedTestScheduleDataBaseMap) {
+	this.generatedTestScheduleDataBaseMap = generatedTestScheduleDataBaseMap;
 }
 
 

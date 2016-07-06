@@ -5,6 +5,9 @@ public class GenerateScheduleBean {
 	private String courseNumber;
 	private String courseName;
 	private String facultyName;
+	
+	
+	
 	//private String courseNumber;
 	
 	
@@ -32,6 +35,7 @@ public class GenerateScheduleBean {
 	public void setFacultyName(String facultyName) {
 		this.facultyName = facultyName;
 	}
+	
 	
 	
 	
