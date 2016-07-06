@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Test {
+public class Test1 {
+	Map<String, ArrayList<String>> hashMap = new HashMap<String, ArrayList<String>>();
 	HashMap<String,ArrayList<String>> courseCodesMap = new LinkedHashMap<String,ArrayList<String>>();
-	HashMap<String,String> codesMap = new LinkedHashMap<String,String>();
 
 	
 	private void addMapValues(String key, String value) {
@@ -35,7 +35,7 @@ public class Test {
 		Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		 courseDataBaseMap =  DataManager.getInstance().getCourseDataBaseMap();
 		
-		 System.out.println("$$$$$$"+courseDataBaseMap.size());
+System.out.println("$$$$$$"+courseDataBaseMap.size());
 		 
 		String keyy="";
 		int j=0;
@@ -51,23 +51,23 @@ public class Test {
 					//System.out.println(keyy);
 					
 					if(!courseCodesMap.containsKey(keyy)){
-						codesMap.put(keyy, keyy+"-0"+1);
-						addMapValues(keyy+1,keyy+"-0"+1);
+						addMapValues(keyy,keyy+"-0"+1);
 						//generateScheduleBean.setCourseNumber(keyy+"-0"+1);
 					}
 					else{
 						
 						j = courseCodesMap.get(course.getCourseNumber()).size();
 						int k = j+1;
-						if(j<10){
-							codesMap.put(keyy, keyy+"-0"+1);
+						if(j<10)
 							addMapValues(keyy,keyy+"-0"+k);
 						//generateScheduleBean.setCourseNumber(course.getCourseNumber()+"-0"+j);
-						}else{
+						else
 							addMapValues(keyy,keyy+""+k);
 						//generateScheduleBean.setCourseNumber(course.getCourseNumber()+"-"+j);
 					}
-					}
+					
+					
+					
 				//}
 		 }
 		 
@@ -83,11 +83,65 @@ public class Test {
 		         }
 		      }
 		   }
+		
 	}
 	
+	
+	
+	public  void duplicateStores(){
+		// Add data with duplicate keys
+		   addValues("A", "a1");
+		   addValues("A", "a2");
+		   addValues("B", "b");
+		   // View data.
+		   Iterator it = hashMap.keySet().iterator();
+		   ArrayList<String> tempList = null;
+
+		   while (it.hasNext()) {
+		      String key = it.next().toString();             
+		      tempList = hashMap.get(key);
+		      if (tempList != null) {
+		         for (String value: tempList) {
+		            System.out.println("Key : "+key+ " , Value : "+value);
+		         }
+		      }
+		   }
+	}
+
+	private void addValues(String key, String value) {
+		   ArrayList tempList = null;
+		   if (hashMap.containsKey(key)) {
+		      tempList = hashMap.get(key);
+		      if(tempList == null)
+		         tempList = new ArrayList();
+		      tempList.add(value);  
+		   } else {
+		      tempList = new ArrayList();
+		      tempList.add(value);               
+		   }
+		   hashMap.put(key,tempList);
+		}
+	
 	public static void main(String[] args) {
-		Test test = new Test();
-		test.test();
+		
+	//	test();
+		Test1 test = new Test1();
+	//	test.duplicateStores();
+	test.test();
+		/*HashMap<String,Integer> mapp = new HashMap<String,Integer>();
+		
+		for (int i = 0; i < 5; i++) {
+			
+			mapp.put("abc", i);
+			System.out.println(mapp.get("abc"));
+		}
+		
+		mapp.put("abc", 1);
+		System.out.println(mapp.containsKey("abc"));
+		System.out.println(mapp.get("abc"));
+		mapp.put("abc", 2);
+		System.out.println(mapp.get("abc"));
+		*/
 	}
 
 }

@@ -102,6 +102,8 @@ public class Course {
 				+ ((courseNumber == null) ? 0 : courseNumber.hashCode());
 		result = prime * result
 				+ ((creditHours == null) ? 0 : creditHours.hashCode());
+		result = prime * result
+				+ ((facultyName == null) ? 0 : facultyName.hashCode());
 		result = prime
 				* result
 				+ ((listOfPreReqCourse == null) ? 0 : listOfPreReqCourse
@@ -110,6 +112,12 @@ public class Course {
 				* result
 				+ ((listOfSemestersOffered == null) ? 0
 						: listOfSemestersOffered.hashCode());
+		result = prime * result
+				+ ((offeredFall == null) ? 0 : offeredFall.hashCode());
+		result = prime * result
+				+ ((offeredSpring == null) ? 0 : offeredSpring.hashCode());
+		result = prime * result
+				+ ((offeredSummer == null) ? 0 : offeredSummer.hashCode());
 		return result;
 	}
 	@Override
@@ -143,6 +151,11 @@ public class Course {
 				return false;
 		} else if (!creditHours.equals(other.creditHours))
 			return false;
+		if (facultyName == null) {
+			if (other.facultyName != null)
+				return false;
+		} else if (!facultyName.equals(other.facultyName))
+			return false;
 		if (listOfPreReqCourse == null) {
 			if (other.listOfPreReqCourse != null)
 				return false;
@@ -152,6 +165,21 @@ public class Course {
 			if (other.listOfSemestersOffered != null)
 				return false;
 		} else if (!listOfSemestersOffered.equals(other.listOfSemestersOffered))
+			return false;
+		if (offeredFall == null) {
+			if (other.offeredFall != null)
+				return false;
+		} else if (!offeredFall.equals(other.offeredFall))
+			return false;
+		if (offeredSpring == null) {
+			if (other.offeredSpring != null)
+				return false;
+		} else if (!offeredSpring.equals(other.offeredSpring))
+			return false;
+		if (offeredSummer == null) {
+			if (other.offeredSummer != null)
+				return false;
+		} else if (!offeredSummer.equals(other.offeredSummer))
 			return false;
 		return true;
 	}

@@ -104,7 +104,7 @@ public class DirectorHomeUI extends JFrame {
 				
 			}
 		});
-		btnLogout.setBounds(68, 333, 153, 52);
+		btnLogout.setBounds(261, 330, 153, 60);
 		pnl.add(btnLogout);
 		
 		JButton btnUpdateForecast = new JButton("UPDATE FORECAST");
@@ -139,6 +139,17 @@ public class DirectorHomeUI extends JFrame {
 		});
 		btnNewButton_1.setBounds(456, 244, 153, 60);
 		pnl.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("TEST SCHEDULE");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				GenerateTestScheduleUI.displayGenerateTestScheduleUI();
+				disposeWindow();
+				
+			}
+		});
+		btnNewButton_2.setBounds(72, 330, 149, 60);
+		pnl.add(btnNewButton_2);
 	}	
 		
 	

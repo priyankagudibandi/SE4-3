@@ -27,7 +27,7 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
-public class GenerateScheduleUI extends JFrame {
+public class GenerateTestScheduleUI extends JFrame {
 	private JPanel pForm, pTable;
 	private JLabel labelSectionFill, labelSectionOverage,statusLabel11111;
 	private JTextField textSectionFill, textSectionOverage;
@@ -44,7 +44,7 @@ public class GenerateScheduleUI extends JFrame {
 	private String selectListOfPreReqCourses="";
 	JRadioButton rdbtnFall,rdbtnAbcd,rdbtnSummer;
 	private JList list;
-	public GenerateScheduleUI() {
+	public GenerateTestScheduleUI() {
 		setTitle("OKLAHOMA CHRISTIAN UNIVERSITY");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		CSVFileReader.courseCSVReader();
@@ -248,16 +248,16 @@ public class GenerateScheduleUI extends JFrame {
 		
 		HashMap<Integer,GenerateScheduleBean> generatedScheduleDataBaseMap = new LinkedHashMap<Integer,GenerateScheduleBean>();
 		generatedScheduleDataBaseMap = DataManager.getInstance().getGeneratedScheduleDataBaseMap();
-		System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
+		//System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
 		generatedScheduleDataBaseMap.clear();
-		System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
+		//System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
 		
 		HashMap<Integer,Semester> semesterDataBaseMap = new HashMap<Integer,Semester>();
 		semesterDataBaseMap = DataManager.getInstance().getSemesterDataBaseMap();
 		
 		 Map<Integer,Course> courseDataBaseMap = new HashMap<Integer,Course>();
 		 courseDataBaseMap =  DataManager.getInstance().getCourseDataBaseMap();
-		 System.out.println("**********************generateSchedule() courseDataBaseMap: "+courseDataBaseMap.size());
+		// System.out.println("**********************generateSchedule() courseDataBaseMap: "+courseDataBaseMap.size());
 		
 		if (isValidData()) {
 			
@@ -274,6 +274,7 @@ public class GenerateScheduleUI extends JFrame {
 			String courseName;
 			String courseCodes ="CENG 5013#CENG 5013-01 CENG 5013#CENG 5013-01";
 			int j=0;
+			int k =0;
 			
 			for (int i = 0; i < courseDataBaseMap.size(); i++) {
 				course = 	courseDataBaseMap.get(i);
@@ -287,33 +288,41 @@ public class GenerateScheduleUI extends JFrame {
 				generateScheduleBean.setFacultyName(course.getFacultyName());
 				generateScheduleBean.setCourseNumber(courseCodes);
 
-				int z=0;
 				if(rdbtnFall.isSelected()&& course.getOfferedFall().equals(AppContstants.YES)){
 					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_FALL);	
-					z++;
+					k++;
+					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
 				}
 				
 				else if(rdbtnAbcd.isSelected()&& course.getOfferedSpring().equals(AppContstants.YES)){
 					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_SPRING);	
-					z++;
+					k++;
+					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
 				}
 				
 				else if(rdbtnSummer.isSelected()&& course.getOfferedSummer().equals(AppContstants.YES)) {
 					generateScheduleBean.setSemester(AppContstants.SEMESTER_TYPE_SUMMER);	
-					z++;
+					k++;
+					generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
 				}
 				
 			
-				if(generateScheduleBeanFallList.size()<25 && z==1){
-				generateScheduleBeanFallList.add(generateScheduleBean);
-				generatedScheduleDataBaseMap.put(generatedScheduleDataBaseMap.size(), generateScheduleBean);
+				
 				}
-				}
+			  
+			
+			
 		}
 			
 		
-			refreshTable();
-			cleanFields();
+			System.out.println("************courseDataBaseMap.size() "+courseDataBaseMap.size());
+			System.out.println("**********************generateSchedule() generatedScheduleDataBaseMap: "+generatedScheduleDataBaseMap.size());
+			if(generatedScheduleDataBaseMap.size()<=20){
+				refreshTable();
+				cleanFields();
+				}
+			
+			
 	}
 
 	
@@ -357,8 +366,8 @@ public class GenerateScheduleUI extends JFrame {
 	}
 
 	
-	public static void displayGenerateScheduleUI(){
-		GenerateScheduleUI ui = new GenerateScheduleUI();
+	public static void displayGenerateTestScheduleUI(){
+		GenerateTestScheduleUI ui = new GenerateTestScheduleUI();
 		center = new Center(ui,1000,800);
 		ui.setVisible(true);
 		ui.setResizable(false);
@@ -370,7 +379,7 @@ public class GenerateScheduleUI extends JFrame {
 	}
 	
 	public static void main(String[] args) {
-		GenerateScheduleUI frmForm = new GenerateScheduleUI();
+		GenerateTestScheduleUI frmForm = new GenerateTestScheduleUI();
 		 center = new Center(frmForm,1000,800);
         frmForm.setVisible(true);
         frmForm.setResizable(false);
